@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:quiz_app/widgets/quiz.dart';
-
 class StartScreen extends StatefulWidget {
-  const StartScreen({super.key});
+  const StartScreen({super.key, required this.startQuiz});
+  final void Function() startQuiz;
   @override
   State<StartScreen> createState() => _StartScreenState();
 }
@@ -42,9 +41,7 @@ class _StartScreenState extends State<StartScreen> {
           ),
 
           ElevatedButton.icon(
-            onPressed: () {
-              // here goes the function
-            },
+            onPressed: widget.startQuiz,
             icon: const Icon(Icons.question_mark),
             label: const Text("Get started"),
           ),
