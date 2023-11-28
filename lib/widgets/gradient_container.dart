@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 class GradientContainer extends StatefulWidget {
   const GradientContainer({super.key});
@@ -10,16 +11,22 @@ class GradientContainer extends StatefulWidget {
 class _GradientContainerState extends State<GradientContainer> {
   Color _colorTop = Colors.red;
   Color _colorBottom = Colors.blue;
+  Color getColor() {
+    return Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+        .withOpacity(1.0);
+  }
 
   void changeColor() {
-    // setState(() {
-
-    // });
+    setState(() {
+      _colorTop = getColor();
+      _colorBottom = getColor();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      duration: const Duration(seconds: 1),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -32,13 +39,26 @@ class _GradientContainerState extends State<GradientContainer> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 30),
+                child: Image.asset(
+                  "assets/images/quiz-logo.png",
+                  width: 250,
+                ),
+              ),
               const Text(
                 "Learn Flutter the fun way",
                 style: TextStyle(fontSize: 20, color: Colors.white),
               ),
-              ElevatedButton(
+              ElevatedButton.icon(
                 onPressed: changeColor,
-                child: const Text("change Colors"),
+                icon: const Icon(Icons.color_lens),
+                label: const Text("change color"),
+              ),
+              ElevatedButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.question_mark),
+                label: const Text("Get started"),
               ),
             ],
           ),
