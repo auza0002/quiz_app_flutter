@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:quiz_app/widgets/questions_screen.dart';
 import 'package:quiz_app/widgets/start_screen.dart';
 import 'dart:math' as math;
+import 'package:google_fonts/google_fonts.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -42,6 +44,9 @@ class QuizState extends State<Quiz> {
     }
 
     return MaterialApp(
+      theme: ThemeData(
+        fontFamily: GoogleFonts.tiltWarp().fontFamily,
+      ),
       home: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
