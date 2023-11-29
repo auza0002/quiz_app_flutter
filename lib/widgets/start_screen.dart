@@ -24,25 +24,13 @@ class _StartScreenState extends State<StartScreen> {
               // how to make the img tranparent
             ),
           ),
-          // Opacity(
-          //   opacity: 0.8,
-          //   child: Padding(
-          //     padding: const EdgeInsets.only(bottom: 30),
-          //     child: Image.asset(
-          //       "assets/images/quiz-logo.png",
-          //       width: 250,
-          //       // how to make the img tranparent
-          //     ),
-          //   ),
-          // ),
           const Text(
             "Learn Flutter the fun way",
             style: TextStyle(fontSize: 20, color: Colors.white),
           ),
-
           ElevatedButton.icon(
             onPressed: widget.startQuiz,
-            icon: const Icon(Icons.question_mark),
+            icon: const Icon(Icons.star),
             label: const Text("Get started"),
           ),
         ],

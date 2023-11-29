@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:quiz_app/widgets/questions_screen.dart';
 import 'package:quiz_app/widgets/start_screen.dart';
 import 'dart:math' as math;
@@ -13,25 +14,11 @@ class Quiz extends StatefulWidget {
 class QuizState extends State<Quiz> {
   var activeScreen = "start-screen";
 
-  void switchScreen() {
+  void switchScreen() async {
     setState(() {
       activeScreen = "questions-screen";
     });
   }
-
-  // Widget? activeScreen;
-  // @override
-  // void initState() {
-  //   activeScreen = StartScreen(
-  //     startQuiz: switchScreen,
-  //   );
-  //   super.initState();
-  // }
-  // void switchScreen() {
-  //   setState(() {
-  //     activeScreen = const Questions();
-  //   });
-  // }
 
   Color _colorTop = Colors.red;
   Color _colorBottom = Colors.blue;
@@ -58,11 +45,15 @@ class QuizState extends State<Quiz> {
       home: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-          title: const Text(
-            "My Quiz App",
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          title: const Align(
+            alignment: Alignment.bottomLeft,
+            child: Text(
+              "My Quiz App",
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
           ),
-          backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+          backgroundColor: const Color.fromARGB(25, 0, 0, 0),
           elevation: 0,
           actions: [
             IconButton(
