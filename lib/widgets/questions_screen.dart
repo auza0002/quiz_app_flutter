@@ -13,7 +13,6 @@ class Questions extends StatefulWidget {
 class _QuestionsState extends State<Questions> {
   void answerQuestion() {
     setState(() {
-      // currentQuestionindex += 1;
       currentQuestionindex++;
     });
   }
