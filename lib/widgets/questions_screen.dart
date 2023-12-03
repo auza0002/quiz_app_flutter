@@ -1,23 +1,27 @@
+import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:quiz_app/widgets/answer_button.dart';
 import 'package:quiz_app/data/questions.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Questions extends StatefulWidget {
-  const Questions({super.key});
+  const Questions({super.key, required this.onSelectedAnswer});
+
+  final void Function(String answer) onSelectedAnswer;
 
   @override
   State<Questions> createState() => _QuestionsState();
 }
 
 class _QuestionsState extends State<Questions> {
-  void answerQuestion() {
+  var currentQuestionindex = 0;
+
+  void answerQuestion(String selectedAnswer) {
+    widget.onSelectedAnswer(selectedAnswer);
     setState(() {
       currentQuestionindex++;
     });
   }
 
-  var currentQuestionindex = 0;
   @override
   Widget build(BuildContext context) {
     final currentQuestions = questions[currentQuestionindex];
@@ -46,7 +50,12 @@ class _QuestionsState extends State<Questions> {
             height: 30,
           ),
           ...currentQuestions.getShuffledAnswers().map((answer) {
-            return (Answerbutton(value: answer, callBack: answerQuestion));
+            return Answerbutton(
+              value: answer,
+              callBack: () {
+                answerQuestion(answer);
+              },
+            );
           }),
         ],
       ),

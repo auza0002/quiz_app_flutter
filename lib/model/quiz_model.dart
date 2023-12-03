@@ -6,6 +6,7 @@ class QuizModel {
 
   List<String> getShuffledAnswers() {
     final shuffledList = List.of(answers);
-    return shuffledList..shuffle();
+    shuffledList.shuffle();
+    return shuffledList;
   }
 }

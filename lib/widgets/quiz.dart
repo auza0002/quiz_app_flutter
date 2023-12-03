@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:quiz_app/data/questions.dart' as question_array;
 import 'package:quiz_app/widgets/questions_screen.dart';
+import 'package:quiz_app/widgets/result_screen.dart';
 import 'package:quiz_app/widgets/start_screen.dart';
 import 'dart:math' as math;
-import 'package:google_fonts/google_fonts.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -14,14 +14,25 @@ class Quiz extends StatefulWidget {
 }
 
 class QuizState extends State<Quiz> {
-  final List<String> selectedAnswers = [];
+  List<String> selectedAnswers = [];
 
-  var activeScreen = "start-screen";
+  static String activeScreen = "start-screen";
 
-  void switchScreen() async {
+  void switchScreen() {
     setState(() {
+      selectedAnswers = [];
       activeScreen = "questions-screen";
     });
+  }
+
+  void chooseAnswer(String answer) {
+    if (selectedAnswers.length == question_array.questions.length - 2) {
+      setState(() {
+        activeScreen = "result-screen";
+      });
+    } else {
+      selectedAnswers.add(answer);
+    }
   }
 
   Color _colorTop = Colors.red;
@@ -41,8 +52,17 @@ class QuizState extends State<Quiz> {
   @override
   Widget build(BuildContext context) {
     Widget screenWidget = StartScreen(startQuiz: switchScreen);
+
     if (activeScreen == "questions-screen") {
-      screenWidget = const Questions();
+      screenWidget = Questions(
+        onSelectedAnswer: chooseAnswer,
+      );
+    }
+    if (activeScreen == "result-screen") {
+      screenWidget = ResultScreen(
+        switchscreen: switchScreen,
+        result: selectedAnswers,
+      );
     }
 
     return MaterialApp(
