@@ -4,6 +4,14 @@ class QuestionsSummary extends StatelessWidget {
   const QuestionsSummary({super.key, required this.questionsSummary});
   final List<Map<String, Object>> questionsSummary;
 
+  bool getColorsByAnswer(String answer, String userAnwer) {
+    var result = false;
+    if (answer == userAnwer) {
+      result = true;
+    }
+    return result;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,23 +30,46 @@ class QuestionsSummary extends StatelessWidget {
                 return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text(((item['question_index'] as int) + 1).toString()),
+                      Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          color: getColorsByAnswer(
+                                  item['correnct_anwer'] as String,
+                                  item['user_answer'] as String)
+                              ? Colors.blue
+                              : Colors.red,
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        child: Center(
+                          child: Text(
+                            textAlign: TextAlign.center,
+                            ((item['question_index'] as int) + 1).toString(),
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
                       SizedBox(
                         width: 250,
                         child: Expanded(
                           child: Column(
                             children: [
-                              Text(item['question'] as String),
+                              Text(
+                                item['question'] as String,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
                               const SizedBox(
                                 height: 20,
                               ),
                               Text(
                                 item['user_answer'] as String,
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                               ),
                               Text(
                                 item['correnct_anwer'] as String,
-                                style: TextStyle(color: Colors.blue),
+                                style: const TextStyle(color: Colors.blue),
                               ),
                             ],
                           ),
