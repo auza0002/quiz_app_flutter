@@ -26,12 +26,12 @@ class QuizState extends State<Quiz> {
   }
 
   void chooseAnswer(String answer) {
+    selectedAnswers.add(answer);
+
     if (selectedAnswers.length == question_array.questions.length - 2) {
       setState(() {
-        activeScreen = "result-screen";
+        activeScreen = 'result-screen';
       });
-    } else {
-      selectedAnswers.add(answer);
     }
   }
 
@@ -52,16 +52,15 @@ class QuizState extends State<Quiz> {
   @override
   Widget build(BuildContext context) {
     Widget screenWidget = StartScreen(startQuiz: switchScreen);
-
-    if (activeScreen == "questions-screen") {
-      screenWidget = Questions(
-        onSelectedAnswer: chooseAnswer,
-      );
-    }
     if (activeScreen == "result-screen") {
       screenWidget = ResultScreen(
         switchscreen: switchScreen,
         result: selectedAnswers,
+      );
+    }
+    if (activeScreen == "questions-screen") {
+      screenWidget = Questions(
+        onSelectedAnswer: chooseAnswer,
       );
     }
 
